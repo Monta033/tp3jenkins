@@ -6,7 +6,7 @@ pipeline {
      environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "192.168.1.55:8081"
+        NEXUS_URL = "192.168.119.20:8081"
         NEXUS_REPOSITORY = "maven-nexus-repo"
         NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
     }
@@ -18,20 +18,20 @@ pipeline {
         }
         stage ("Clone repo"){
             steps {
-                sh "git clone https://github.com/MaBouz/backend.git"
+                sh "git clone https://github.com/Monta033/tp3jenkins.git"
             }
         }
         stage ("Generate backend image") {
               steps {
-                   dir("backend"){
+                   dir("tp3jenkins"){
                       sh "mvn clean install"
-                      sh "docker build -t backend ."
+                      sh "docker build -t tp3jenkins ."
                   }                
               }
           }
         stage ("Run docker compose") {
             steps {
-                 dir("backend"){
+                 dir("tp3jenkins"){
                     sh " docker compose up -d"
                 }                
             }
@@ -39,7 +39,7 @@ pipeline {
          stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar-server') {
-                    dir("backend"){
+                    dir("tp3jenkins"){
                         sh 'mvn sonar:sonar'
                     }
                 }
@@ -48,7 +48,7 @@ pipeline {
 
         stage("Publish to Nexus Repository Manager") {
             steps {
-                 dir("backend"){
+                 dir("tp3jenkins"){
 
                      script {
                         pom = readMavenPom file: "pom.xml";
