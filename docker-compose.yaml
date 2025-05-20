@@ -1,7 +1,6 @@
-version: '3.8'
+version: '3.3'
 
 services:
-  # Spring Boot Application
   spring-boot-app:
     image: tp3jenkins
     ports:
@@ -15,7 +14,6 @@ services:
     depends_on:
       - mysql
 
-  # MySQL Database
   mysql:
     image: mysql:5.7
     restart: always
@@ -27,6 +25,5 @@ services:
     volumes:
       - api_etudiant:/var/lib/mysql
 
-# Liste des volumes
 volumes:
   api_etudiant:
