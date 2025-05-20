@@ -1,6 +1,6 @@
-version:'3.8'
+version: '3.8'
+
 services:
-    
   # Spring Boot Application
   spring-boot-app:
     image: tp3jenkins
@@ -19,14 +19,14 @@ services:
   mysql:
     image: mysql:5.7
     restart: always
-    environment:
-      MYSQL_DATABASE: 'api_etudiant'
-      MYSQL_ROOT_USERNAME: 'root'
-      MYSQL_ROOT_PASSWORD: 'root'
     ports:
-      - '0.0.0.0:3306:3306'
+      - "0.0.0.0:3306:3306"
+    environment:
+      MYSQL_DATABASE: api_etudiant
+      MYSQL_ROOT_PASSWORD: root
     volumes:
       - api_etudiant:/var/lib/mysql
-  # liste des volumes 
+
+# Liste des volumes
 volumes:
   api_etudiant:
